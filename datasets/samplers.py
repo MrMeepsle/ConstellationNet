@@ -17,20 +17,18 @@ class CategoriesSampler():
 
     def __len__(self):
         return self.n_batch
-    
+
     def __iter__(self):
         for i_batch in range(self.n_batch):
             batch = []
             for i_ep in range(self.ep_per_batch):
                 episode = []
-                classes = np.random.choice(len(self.catlocs), self.n_cls,
-                                           replace=False)
+                classes = np.random.choice(len(self.catlocs), self.n_cls, replace=False)
                 for c in classes:
-                    l = np.random.choice(self.catlocs[c], self.n_per,
-                                         replace=False)
+                    l = np.random.choice(self.catlocs[c], self.n_per, replace=False) if self.n_per > len(
+                        self.catlocs[c]) else l = np.random.choice(self.catlocs[c], len(self.catlocs[c]), replace=False)
                     episode.append(torch.from_numpy(l))
                 episode = torch.stack(episode)
                 batch.append(episode)
-            batch = torch.stack(batch) # bs * n_cls * n_per
+            batch = torch.stack(batch)  # bs * n_cls * n_per
             yield batch.view(-1)
-
