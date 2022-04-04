@@ -7,16 +7,13 @@ class CategoriesSampler():
     def __init__(self, label, n_batch, n_cls, n_per, ep_per_batch=1):
         self.n_batch = n_batch
         self.n_cls = n_cls
+        self.n_per = n_per
         self.ep_per_batch = ep_per_batch
 
         label = np.array(label)
         self.catlocs = []
         for c in range(max(label) + 1):
             self.catlocs.append(np.argwhere(label == c).reshape(-1))
-
-        self.n_per = len(min(self.catlocs, key=len))  # Account for small datasets
-        if self.n_per > n_per:
-            self.n_per = n_per
 
     def __len__(self):
         return self.n_batch

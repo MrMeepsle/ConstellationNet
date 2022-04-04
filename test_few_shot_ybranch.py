@@ -39,7 +39,7 @@ def main(config):
     utils.log('dataset: {} (x{}), {}'.format(
             dataset[0][0].shape, len(dataset), dataset.n_classes))
     n_way = 5
-    n_shot, n_query = args.shot, 15
+    n_shot, n_query = args.shot, 13
     n_batch = 800 #200 # Due to the memory issue, we change the settings. (800,1) and (200,4) lead to similar results.
     ep_per_batch = 1 #4 
     batch_sampler = CategoriesSampler(
