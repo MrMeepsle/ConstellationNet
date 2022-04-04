@@ -14,7 +14,7 @@ class CategoriesSampler():
         for c in range(max(label) + 1):
             self.catlocs.append(np.argwhere(label == c).reshape(-1))
 
-        self.n_per = min(self.catlocs, key=len)  # Account for small datasets
+        self.n_per = len(min(self.catlocs, key=len))  # Account for small datasets
         if self.n_per > n_per:
             self.n_per = n_per
 
