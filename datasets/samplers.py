@@ -25,7 +25,7 @@ class CategoriesSampler():
                 episode = []
                 classes = np.random.choice(len(self.catlocs), self.n_cls, replace=False)
                 for c in classes:
-                    l = np.random.choice(self.catlocs[c], self.n_per, replace=False) if self.n_per > len(
+                    l = np.random.choice(self.catlocs[c], self.n_per, replace=False) if self.n_per < len(
                         self.catlocs[c]) else l = np.random.choice(self.catlocs[c], len(self.catlocs[c]), replace=False)
                     episode.append(torch.from_numpy(l))
                 episode = torch.stack(episode)
