@@ -61,9 +61,9 @@ class FeatureClusteringMinibatch(nn.Module):
         assert len(x.shape) == 2
         U = x                         # Shape: [N, C].
 
-        print('Input!!!!!!!!!!!!!!!!!!!')
-        print('Input shape:', U.shape)
-        print(U)
+        # print('Input!!!!!!!!!!!!!!!!!!!')
+        # print('Input shape:', U.shape)
+        #print(U)
 
         N,C = U.shape       
         U = F.normalize(U, dim=-1)             # Shape: [N, C].
@@ -88,9 +88,9 @@ class FeatureClusteringMinibatch(nn.Module):
             self.V_buffer.copy_(V.detach().clone()) 
             self.V_count_buffer.copy_(V_count.detach().clone())     
 
-        print('Output!!!!!!!!!!!!!!!!!!!')
-        print('Test shape UV_dist:', UV_dist.shape)
-        print(UV_dist)
+        # print('Output!!!!!!!!!!!!!!!!!!!')
+        # print('Test shape UV_dist:', UV_dist.shape)
+        #print(UV_dist)
 
         return UV_dist  
         # Return UV distance.
