@@ -4,21 +4,29 @@ import pickle
 import os
 from sklearn.model_selection import train_test_split
 
-img_dir = 'raw-pacs/pacs_data/pacs_data/photo/'
+img_dir = 'raw-pacs/pacs_data/pacs_data/'
 classes_dict = {"dog": 1, "elephant": 2, "giraffe": 3, "guitar": 4, "horse": 5, "house": 6, "person": 7, }
-data = []
-labels = []
+validation_domain = "art_painting"
+domains_list = ["photo", "sketch", "cartoon", "art_painting"]
+data_train = []
+labels_train = []
+data_rest = []
+labels_rest = []
 
 print("Start pickling classes")
-for class_ in classes_dict:
-    for filename in os.listdir(img_dir + class_):
-        if filename.endswith((".jpg", ".png")):
-            image = Image.open(img_dir + class_ + "/" + filename)
-            image = image.resize((32, 32), Image.ANTIALIAS)
-            data.append(np.asarray(image))
-            labels.append(classes_dict[class_])
+for domain in domains_list:
+    for class_ in classes_dict:
+        for filename in os.listdir(img_dir + domain + "/" + class_):
+            if filename.endswith((".jpg", ".png")):
+                image = Image.open(img_dir + domain + "/" + class_ + "/" + filename)
+                image = image.resize((32, 32), Image.ANTIALIAS)
+                if domain == validation_domain:
+                    data_rest.append(np.asarray(image))
+                    labels_rest.append(classes_dict[class_])
+                else:
+                    data_train.append(np.asarray(image))
+                    labels_train.append(classes_dict[class_])
 
-data_train, data_rest, labels_train, labels_rest = train_test_split(data, labels, test_size=0.30)
 data_val, data_test, labels_val, labels_test = train_test_split(data_rest, labels_rest, test_size=0.50)
 
 # Pickle the dicts
