@@ -44,7 +44,7 @@ eval_val: True
 eval_fs: True
 
 # classification hyperparameters
-batch_size: 128
+batch_size: 256
 max_epoch: 60
 
 # few-shot hyperparameters
