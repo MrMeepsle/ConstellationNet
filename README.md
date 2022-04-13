@@ -48,7 +48,7 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
    - [Mini-ImageNet](https://drive.google.com/file/d/1fJAK5WZTjerW7EWHHQAR9pRJVNg1T1Y7/view?usp=sharing) (courtesy of [Spyros Gidaris](https://github.com/gidariss/FewShotWithoutForgetting))
    - [CIFAR-FS](https://drive.google.com/file/d/1GjGMI0q3bgcpcB_CjI40fX54WgLPuTpS/view?usp=sharing) (courtesy of [Kwonjoon Lee](https://github.com/kjunelee/MetaOptNet))
    - [FC100](https://drive.google.com/file/d/1_ZsLyqI487NRDQhwvI7rg86FK3YAZvz1/view?usp=sharing) (courtesy of [Kwonjoon Lee](https://github.com/kjunelee/MetaOptNet))
-   - [PACS](https://1drv.ms/u/s!AtQiLT3Xe-I1px6Vho4tim4AmB3i) (only photo classification)
+   - [PACS](https://www.dropbox.com/sh/coj2h0s0k3nyc2b/AAAE-p8betaQDi7G7Qk9VimSa?dl=0) (folder with different test domains)
    
    The code assumes datasets are saved according to the following structure:
    
@@ -74,6 +74,16 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
 │   ├── PACS_val.pickle
 ```
 
+### Pickling Datasets
+```
+ dataset
+├── class_folder_1
+├── class_folder_2
+├── ...
+```
+A dataset that has the above structure can be pickled to be tested on by `pickler.py`. Here you can specify image downscaling sizes and the fraction of the dataset that will be used as test split.
+
+
 
 ### Pre-trained Checkpoints
 
@@ -93,15 +103,15 @@ We provide the Constellation Nets checkpoints pre-trained on the Mini-Imagenet, 
 ### Train
    The following commands provide an example to train the Constellation Net .
    ```bash
-   # Usage: bash ./scripts/train.sh [Dataset (mini, cifar-fs, fc100)] [Backbone (conv4, res12)] [GPU index] [Tag]
-   bash ./scripts/train.sh mini conv4 0 trial1
+   # Usage: bash ./scripts/train.sh [Dataset (mini, cifar-fs, fc100, pacs)] [Backbone (conv4, res12)] [GPU index] [Tag]
+   bash ./scripts/train.sh mini pacs 0 trial1
    ```
 
 ### Evaluate
    The following commands provide an example to evaluate the checkpoint after training.
    ```bash
-   # Usage: bash ./scripts/test.sh [Dataset (mini, cifar-fs, fc100)] [Backbone (conv4, res12)] [GPU index] [Tag]
-   bash ./scripts/eval.sh mini conv4 0 trial1
+   # Usage: bash ./scripts/test.sh [Dataset (mini, cifar-fs, fc100, pacs)] [Backbone (conv4, res12)] [GPU index] [Tag]
+   bash ./scripts/eval.sh mini pacs 0 trial1
    ```
 
 ## Citation
