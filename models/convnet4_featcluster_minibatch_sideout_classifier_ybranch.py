@@ -48,18 +48,21 @@ class ConvBlock(nn.Module):
 
 
     def forward(self, x, sideout=False):
-        
-        B, _, H, W = x.shape
+        # print(x.shape)
+
+        B, _, H, W = x.shape # (128x3x32x32)
         shape = {}
         shape['B'], shape['H'], shape['W'] = B, H, W
         sideout_dict = {}
         out_conv = self.conv(x)
+        # print(out_conv.shape) # shape of (128x64x32x32)
         if self.use_feat_cluster or self.use_self_attention:
             feature_sideout = out_conv # Shape: [B,C,H,W].
             
             if self.use_feat_cluster:        
                 # Cell feature clustering.
-                out_conv_reshape = out_conv.permute(0,2,3,1).contiguous().view(B*H*W, -1) 
+                out_conv_reshape = out_conv.permute(0,2,3,1).contiguous().view(B*H*W, -1)
+                # print(out_conv_reshape.shape)
                 UV_dist = self.feat_cluster(out_conv_reshape, shape)       # Shape: [B*H*W,C'].            
                 feature_sideout = UV_dist.view(B,H,W,-1).permute(0,3,1,2).contiguous() # Shape: [B,C',H,W]     
             
